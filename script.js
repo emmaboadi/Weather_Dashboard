@@ -1,8 +1,77 @@
 // This is our API key
+let APIKey = "051ff2d6696b940f7f6f04a82faf7b02";
+
+
 let cities = ["Manchester", "Accra", "Tokyo", "Banjul"];
 
+//function weatherDashboard() {
 
-var APIKey = "051ff2d6696b940f7f6f04a82faf7b02";
+
+    //let city = $(this).attr("data-name");
+    
+
+    let queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
+    "q=London&units=metric&appid=" + APIKey;
+
+
+    fetch(queryURL)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+
+            // storing city name
+            let cityName = data.name;
+            let cityHeading = $("<h2>").text(cityName);
+
+            //displying the city name
+            $("#today").append(cityHeading);
+
+            let temperature = data.main.temp;
+            let tempEl = $("<p>").text("Temperature: " + temperature);
+            $("#today").append(tempEl);
+
+            let wind = data.wind.speed;
+            let windEl = $("<p>").text("Wind: " + wind);
+            $("#today").append(windEl);
+
+            let humidity = data.main.humidity;
+            let humidityEl = $("<p>").text("Humidity: " + humidity);
+            $("#today").append(humidityEl);
+
+
+
+            console.log(temperature)
+
+
+
+
+
+
+        })
+
+
+
+//}
+
+//weatherDashboard()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function renderButtons() {
     $("#history").empty();
