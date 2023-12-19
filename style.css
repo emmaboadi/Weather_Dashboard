@@ -1,0 +1,28 @@
+body {
+    background-color: black;
+}
+
+header {
+    background-color: blue;
+    color: rgb(222, 222, 234);
+    height: 100px;
+    text-align: center;
+}
+
+#forecast-card {
+    border: solid;
+    background-color: aquamarine;
+    color: black;
+}
+
+#today {
+    border: solid;
+    background-color: aquamarine;
+    color: black;
+}
+
+.city {
+    padding: 10px;
+    margin-bottom: 20px;
+
+}

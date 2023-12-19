@@ -4,16 +4,18 @@ let APIKey = "051ff2d6696b940f7f6f04a82faf7b02";
 
 let cities = ["Manchester", "Accra", "Tokyo", "Banjul"];
 
-//function weatherDashboard() {
+// function to display weather conditions
+function weatherDashboard() {
 
 
-    //let city = $(this).attr("data-name");
+    var city = $("#search-input").val().trim();
     
 
-    let queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
-    "q=London&units=metric&appid=" + APIKey;
+    let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" +
+    city +
+    "&units=metric&appid=" + APIKey;
 
-/*
+// call for fetching current open weather api
     fetch(queryURL)
         .then(function (response) {
             return response.json();
@@ -27,21 +29,27 @@ let cities = ["Manchester", "Accra", "Tokyo", "Banjul"];
             //displying the city name
             $("#today").append(cityHeading);
 
+            //storing current temperature
             let temperature = data.main.temp;
-            let tempEl = $("<p>").text("Temperature: " + temperature);
+            let tempEl = $("<p>").text("Temperature (C): " + temperature);
+
+            //displaying current temperature
             $("#today").append(tempEl);
 
+            //storing wind speed
             let wind = data.wind.speed;
-            let windEl = $("<p>").text("Wind: " + wind);
+            let windEl = $("<p>").text("Wind (m/sec): " + wind);
+
+            //displaying wind spped
             $("#today").append(windEl);
 
+            
+            //storing humidity
             let humidity = data.main.humidity;
-            let humidityEl = $("<p>").text("Humidity: " + humidity);
+            let humidityEl = $("<p>").text("Humidity (%): " + humidity);
+
+            //displaying current humidity
             $("#today").append(humidityEl);
-
-
-
-            console.log(temperature)
 
 
 
@@ -49,40 +57,50 @@ let cities = ["Manchester", "Accra", "Tokyo", "Banjul"];
 
 
         })
-        */
+        
 
+// API for retrieving weather forecast
+let forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" +
+city + 
+ "&units=metric&appid=" + APIKey;
 
-
-//}
-
-//weatherDashboard()
-
-let forecastURL = "https://api.openweathermap.org/data/2.5/forecast?" +
-"q=London&units=metric&appid=" + APIKey;
-
+ // Fetch call for retrieving weather forecast
            fetch(forecastURL)
            .then(function (response) {
                return response.json();
            })
            .then(function (data) {
 
-            console.log(data.list[0].dt_txt)
+            console.log(data)
 
+// looping through API results
             for (i = 0; i<5; i++) {
                 forecastData = data.list[i];
 
+               //storing forecast date
                 let forecastDate = forecastData.dt_txt;
+                //storing forecast temperature
                 let temperaturee = forecastData.main.temp;
+                //storing forecast windspeed
                 let winde = forecastData.wind.speed;
+                //storing forecast humidity
                 let humiditye = forecastData.main.humidity;
+                //storing weather Icon
+                let weatherIcon = forecastData.weather[0].icon;
 
-                let forecastDiv = $("<div>")
-                        let Date = $("<h4>").text(forecastDate);
-                        let tempEll = $("<p>").text("Temperature: " + temperaturee);
-                        let windEll = $("<p>").text("Wind: " + winde);
-                        let humidityEll = $("<p>").text("Humidity: " + humiditye);
+                var iconurl = "http://openweathermap.org/img/w/" + weatherIcon + ".png";
+
+
+
+                let forecastDiv = $("<div class = 'col' id = 'forecast-card'> ")
+                        let Date = $("<p>").text(forecastDate);
+                        let Icon = $("<img id='icon' alt='weather-icon'>").attr('src', iconurl)
+                        let tempEll = $("<p>").text("Temperature (C): " + temperaturee);
+                        let windEll = $("<p>").text("Wind (m/sec): " + winde);
+                        let humidityEll = $("<p>").text("Humidity (%): " + humiditye);
 
                         forecastDiv.append(Date);
+                        forecastDiv.append(Icon)
                         forecastDiv.append(tempEll);
                         forecastDiv.append(windEll);
                         forecastDiv.append(humidityEll);
@@ -91,34 +109,12 @@ let forecastURL = "https://api.openweathermap.org/data/2.5/forecast?" +
 
                         $("#forecast").append(forecastDiv)
 
-                
-
-
            }});
 
-
-        
-
+        }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// funtion for creating initial movie buttons
 function renderButtons() {
     $("#history").empty();
 
@@ -130,29 +126,10 @@ function renderButtons() {
     }
 }
 
-/* var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
-"q=London&appid=" + APIKey;
-
-
-// Write code between the dashes below to hit the queryURL with fetch(), then take the response data
-// and display it in the div with an id of movie-view
-
-// ------YOUR CODE GOES IN THESE DASHES.
-
-fetch(queryURL)
-  .then(function (response) {
-   return response.json();
-  })
-  .then(function (data) {
-   // $("#today").text(JSON.stringify(data));
 
 
 
 
-
-    console.log(data);
-});
-*/
 // This .on("click") function will trigger the fetch() Call
 $("#search-button").on("click", function (event) {
 
@@ -166,34 +143,20 @@ $("#search-button").on("click", function (event) {
     cities.push(city);
 
     renderButtons();
-  
-    // Here we construct our URL
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
-    "q=London&appid=" + APIKey;
-  
-  
-    // Write code between the dashes below to hit the queryURL with fetch(), then take the response data
-    // and display it in the div with an id of movie-view
-  
-    // ------YOUR CODE GOES IN THESE DASHES.
-  
-   fetch(queryURL)
-      .then(function (response) {
-       return response.json();
-      })
-      .then(function (data) {
-       // $("#today").text(JSON.stringify(data));
 
+    weatherDashboard();
 
-
-
-
-        console.log(data.main);
-    });
+    }
+   
+    
+    );
     // -----------------------------------------------------------------------
   
 
-  });
+  // Adding a click event listener to all elements with a class of "city"
+$(".city").on("click", weatherDashboard);
+
+
 
   renderButtons();
 
