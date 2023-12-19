@@ -13,7 +13,7 @@ let cities = ["Manchester", "Accra", "Tokyo", "Banjul"];
     let queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
     "q=London&units=metric&appid=" + APIKey;
 
-
+/*
     fetch(queryURL)
         .then(function (response) {
             return response.json();
@@ -49,12 +49,58 @@ let cities = ["Manchester", "Accra", "Tokyo", "Banjul"];
 
 
         })
+        */
 
 
 
 //}
 
 //weatherDashboard()
+
+let forecastURL = "https://api.openweathermap.org/data/2.5/forecast?" +
+"q=London&units=metric&appid=" + APIKey;
+
+           fetch(forecastURL)
+           .then(function (response) {
+               return response.json();
+           })
+           .then(function (data) {
+
+            console.log(data.list[0].dt_txt)
+
+            for (i = 0; i<5; i++) {
+                forecastData = data.list[i];
+
+                let forecastDate = forecastData.dt_txt;
+                let temperaturee = forecastData.main.temp;
+                let winde = forecastData.wind.speed;
+                let humiditye = forecastData.main.humidity;
+
+                let forecastDiv = $("<div>")
+                        let Date = $("<h4>").text(forecastDate);
+                        let tempEll = $("<p>").text("Temperature: " + temperaturee);
+                        let windEll = $("<p>").text("Wind: " + winde);
+                        let humidityEll = $("<p>").text("Humidity: " + humiditye);
+
+                        forecastDiv.append(Date);
+                        forecastDiv.append(tempEll);
+                        forecastDiv.append(windEll);
+                        forecastDiv.append(humidityEll);
+                        
+
+
+                        $("#forecast").append(forecastDiv)
+
+                
+
+
+           }});
+
+
+        
+
+
+
 
 
 
@@ -150,6 +196,8 @@ $("#search-button").on("click", function (event) {
   });
 
   renderButtons();
+
+
 
 
     
