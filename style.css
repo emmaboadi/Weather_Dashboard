@@ -1,7 +1,7 @@
 body {
     background-color: black;
 }
-
+/* styling the search button */
 header {
     background-color: blue;
     color: rgb(222, 222, 234);
@@ -9,12 +9,14 @@ header {
     text-align: center;
 }
 
+/* styling section showing forecasted weather*/
 #forecast-card {
     border: solid;
     background-color: aquamarine;
     color: black;
 }
 
+/* styling section showing current div */
 #today {
     border: solid;
     background-color: aquamarine;
@@ -25,4 +27,18 @@ header {
     padding: 10px;
     margin-bottom: 20px;
 
+}
+
+input {
+    width: 100%;
+}
+
+/* styling the search button */
+#search-button {
+    border: solid;
+    border-radius: 10px;
+    width: 100px;
+    margin-top: 20px;
+    background-color: aquamarine;
+    color: black;
 }
